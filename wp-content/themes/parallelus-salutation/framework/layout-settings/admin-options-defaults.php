@@ -102,6 +102,13 @@ if (!empty($page_layouts)) {
 		$row = array(__('Pages', THEME_NAME), $layout_admin->settings_select('layout,page', $select) . $comment);
 		$layout_admin->setting_row($row);
 
+		// ideahack
+		// $select = $select_layout;
+		// $comment = __('The default layout to use for new pages.', THEME_NAME);
+		// $comment = $layout_admin->format_comment($comment);
+		// $row = array(__('Products', THEME_NAME), $layout_admin->settings_select('layout,page', $select) . $comment);
+		// $layout_admin->setting_row($row);
+
 		// Posts
 		$select = $select_layout;
 		$comment = __('The default layout to use for new posts.', THEME_NAME);

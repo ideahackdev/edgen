@@ -52,19 +52,26 @@ class Widget_LoginLogout extends WP_Widget
             //jfb_output_facebook_callback(); This is output in wp_footer as of 1.9.0
         }
 		?>
-            <form name='loginform' id='loginform' action='<?php echo get_option('siteurl')?>/wp-login.php' method='post'>
+		<!--
+            <form name='loginform' id='loginform' action='<?php //echo get_option('siteurl')?>/wp-login.php' method='post'>
                 <label>Username:</label><br />
                 <input type='text' name='log' id='user_login' class='input' tabindex='20' /><input type='submit' name='wp-submit' id='wp-submit' value='Login' tabindex='23' /><br />
                 <label>Password:</label><br />
                 <input type='password' name='pwd' id='user_pass' class='input' tabindex='21' />
-                <br/><span id="forgotText"><a href="<?php echo get_option('siteurl')?>/wp-login.php?action=lostpassword" rel="nofollow" ><?php _e('Forgot')?>?</a></span><br />
+                <br/><span id="forgotText"><a href="<?php// echo get_option('siteurl')?>/wp-login.php?action=lostpassword" rel="nofollow" ><?php// _e('Forgot')?>?</a></span><br />
                 <?php //echo "<input name='rememberme' type='hidden' id='rememberme' value='forever' />";?>
-                <?php echo wp_register('',''); ?>
-                <input type='hidden' name='redirect_to' value='<?php echo htmlspecialchars($_SERVER['REQUEST_URI'])?>' />
+                <?php //echo wp_register('',''); ?>
+                <input type='hidden' name='redirect_to' value='<?php //echo htmlspecialchars($_SERVER['REQUEST_URI'])?>' />
             </form>
+			-->
             <?php
         endif;
         echo $after_widget;
+		?>
+		<div style="margin-bottom:42px;">&nbsp;</div>
+		
+		
+		<?php
     }
     
     

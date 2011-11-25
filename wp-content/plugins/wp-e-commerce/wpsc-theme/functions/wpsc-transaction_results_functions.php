@@ -153,9 +153,9 @@ function transaction_results( $sessionid, $display_to_screen = true, $transactio
 			//ideahack trying to save users to products.
 			get_currentuserinfo();
 			foreach ($cart as $row){
-				$andre_message = "hello:  " . $row['prodid'] . "bought by: " . $current_user->ID;
+			//	$andre_message = "hello:  " . $row['prodid'] . "bought by: " . $current_user->ID;
 				add_post_meta($row['prodid'], 'contributor', $current_user->ID); 
-				add_user_meta( $current_user->ID, 'items_purchased', $row['prodid'] );
+				add_user_meta( $current_user->ID, 'items_purchased', $row['prodid'], false );
 			}
 			//end ideahack
 			

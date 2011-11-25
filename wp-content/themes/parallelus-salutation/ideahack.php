@@ -6,6 +6,19 @@
 add_shortcode('list_all_subpages', 'ih_list_all_subpages');
 
 
+// ideahack redirecting students page to search page.
+
+add_action('get_header', 'ih_redirect_students');
+
+function ih_redirect_students() {
+	if ( "/students/" == $_SERVER['REQUEST_URI'] ){
+				wp_redirect('/?search-class=DB_CustomSearch_Widget-db_customsearch_widget&widget_number=preset-default&all-1=wpsc-product&cs-Country-0=&cs-Gender-2=&cs-Active-3=true&search=Search');
+		exit;
+	} 
+}
+
+
+
 // Function that will return our Wordpress menu
 function list_menu($atts, $content = null) {
 	extract(shortcode_atts(array(  
@@ -149,5 +162,6 @@ function ih_list_all_subpages( $atts ) {
 }
 
 add_image_size('frontpage', 100, 100, true); // thumbnails
+
 
 

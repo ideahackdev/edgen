@@ -335,7 +335,7 @@ div.wpsc_product_search {
 	border: none !important;
 }
 
-#wpsc-main-search .wpsc-products-view-mode a {
+/*#wpsc-main-search .wpsc-products-view-mode a {
 	display: none !important;
 }
 
@@ -355,7 +355,7 @@ div.wpsc_product_search #wpsc_search_autocomplete {
 
 div.wpsc_product_search #wpsc_search_autocomplete {
 	display: none;
-}
+}*/
 
 .searchform-label {
 	padding-right: 15px;
@@ -435,12 +435,14 @@ div.wpsc_product_search #wpsc_search_autocomplete {
 
 
 .default_product_display .wpsc_quantity_update {
-	    margin-left: 20px !important;
-	    margin-top: 40px !important;
+/*	    margin-left: 20px !important;
+	    margin-top: 40px !important;*/
 	}
 	
-.default_product_display .wpsc_buy_button_container {margin-top:45px;}
+/*.default_product_display .wpsc_buy_button_container {margin-top:45px;}
+*/
 
+.default_product_display .wpsc_buy_button_container {float:none !important; margin-bottom: 10px !important; margin-left: 5px !important;}
 
 body.bp-adminbar, body.logged-in {
     padding-top: 0px !important;
@@ -572,14 +574,20 @@ body.bp-adminbar, body.logged-in {
 	width: 250px;
 }
 
-
+#text-5 {float:right;}
 #registernow {
     margin-top: 25px;
 	width: 565px;
     float: right;
 }
-
-
+#wp_sidebarlogin-3 {
+	padding-right:20px;
+}
+#wp_sidebarlogin-3 .login_error {
+	background-color:#058DD6;
+	color: #E3E3E3;
+}
+.blockOverlay {background-color:#0083CA!important;}
 
 
 /* btn impactBtn */
@@ -660,10 +668,6 @@ box-shadow:			0 1px 3px rgba(0,0,0,.27), inset 0 1px 0 rgba(255,255,255,.2);
 }
 
 .tabbertab ul li a {color: BurlyWood;}
-
-.tabbertab p {
-/*    color: #f5f5f5;
-*/}
 
 /* Partner Page */
 
@@ -773,7 +777,7 @@ tr.knc_coupon_details {
     margin-right: 15px;
 }
 
- #questionssidebar h3 a {color: #f5f5f5 !important;}
+#questionssidebar h3 a {color: #f5f5f5 !important;}
 
 #text-7 {
 	background: #0083CA;
@@ -807,4 +811,17 @@ tr.knc_coupon_details {
 
 .activeSlide a {
     box-shadow: 3px 3px 6px #000 !important;
+}
+ul.tweets li a {
+    color: #cc4940;
+}
+
+
+.wpsc_registration_form label {width: 90px !important;}
+
+/*students donated to on profile page*/
+
+#donated_students img {
+    box-shadow: 1px 2px 4px #333;
+    margin: 17px;
 }

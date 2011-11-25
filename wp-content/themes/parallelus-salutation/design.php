@@ -12,12 +12,37 @@
 <body <?php body_class(); ?>>
 
 <div id="Wrapper">
+
+	<?php
 	
-	<?php // ideahack code to make "Pending Donations" happen
-	if (wpsc_cart_item_count() > 0) { 
-		echo '<div id="gotocheckout" style="background: none repeat scroll 0 0 #C5392F; border-radius: 0 0 4px 0; float: left; padding: 5px 15px 5px 10px;"><a style="color: #f5f5f5;" href="http://educationgeneration.org/students/checkout">View Pending Donations</a></div>'; }
+	// ideahack function to get the current page url to checkif its the transaction-results url
+
+	function curPageURL() {
+	 $pageURL = 'http';
+	 if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+	 $pageURL .= "://";
+	 if ($_SERVER["SERVER_PORT"] != "80") {
+	  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+	 } else {
+	  $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+	 }
+	 return $pageURL;
+	}
+
+	// ideahack check to see if we are on the transaction results page
+
+	$isresults = strpos(curPageUrl(), 'transaction-results');
+
+	// ideahack code to make "Pending Donations" happen
+	
+	if (wpsc_cart_item_count() > 0 && !$isresults) { // if you have something in your cart, and are not on the transaction results page (meaning you've just paid), display the pending donations tab
+		echo '<div id="gotocheckout" style="background: none repeat scroll 0 0 #C5392F; border-radius: 0 0 4px 0; float: left; padding: 5px 15px 5px 10px;"><a style="color: #f5f5f5;" href="/students/checkout">View Pending Donations</a></div>'; }
 	?>
 	<div id="Top">
+
+
+
+
 		<div class="clearfix">
 		
 			<?php emptyblock('top') ?>

@@ -8,7 +8,6 @@
 				<div class="item-header">
 					<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>
 				</div>
-		You may note your profile is a little empty at this point. Please rest assured that we will be adding in all of the information regarding your past donations and links to students you have supported. In the meantime, you can use the profile tab below to update your information, and other tabs to change passwords or other information. This section may experience updates and changes in the coming weeks - we'd love to hear any concerns or feedback. 
 			</header>
 	
 			<div id="item-nav">
@@ -49,6 +48,27 @@
 			</div><!-- #item-body -->
 	
 			<?php do_action( 'bp_after_member_home_content' ) ?>
+
+			<div id="donated_students">
+			
+			<h2>Students I've donated to:</h2>
+			
+			<?php
+				global $bp; 
+				$user_meta = get_user_meta($bp->displayed_user->id, "items_purchased", false);
+				$user_meta = array_unique($user_meta);
+				foreach( $user_meta as $meta) {
+					$permalink = get_permalink($meta);
+					echo "<div class='donatedstudent'>";
+					echo "<a href='$permalink'>";
+					echo get_the_post_thumbnail($meta);
+					echo "<p>" . get_the_title($meta) . "</p>";
+					echo "</a>";
+					echo "</div>";
+				
+				}
+			?>
+			</div>
 
 
 		</div><!-- #content -->

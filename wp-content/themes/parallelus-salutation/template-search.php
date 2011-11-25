@@ -112,17 +112,6 @@ $image_width = get_option('product_image_width');
 		
 		$expiration_date = strtotime($expiration_date);
 		$current_date = strtotime(date("Y/m/d"));
-		if($current_date > $expiration_date){
-			//$my_post = array();
-			//$my_post['ID'] = wpsc_the_product_id();
-			//$my_post['post_status'] = 'draft';
-			//wp_update_post( $my_post );
-			update_post_meta(wpsc_the_product_id(), 'Active', 'false');
-		}
-		elseif ( 'false' == get_post_meta(wpsc_the_product_id(), 'Active', true) ) {
-			//just skip over students that are not active.
-		}
-		else{
 		?>	
 			<div class="default_product_display product_view_<?php echo wpsc_the_product_id(); ?> <?php echo wpsc_category_class(); ?> group">   
 				<h2 class="prodtitle entry-title">
@@ -137,8 +126,8 @@ $image_width = get_option('product_image_width');
 						<?php if(wpsc_the_product_thumbnail()) :
 						?>
 							<a rel="<?php echo wpsc_the_product_title(); ?>" class="<?php echo wpsc_the_product_image_link_classes(); ?>" href="<?php echo wpsc_the_product_image(); ?>">
-								<img class="product_image" id="product_image_<?php echo wpsc_the_product_id(); ?>" alt="<?php echo wpsc_the_product_title(); ?>" title="<?php echo wpsc_the_product_title(); ?>" src="<?php echo wpsc_the_product_thumbnail(); ?>"/>
 
+						<?php echo get_the_post_thumbnail( wpsc_the_product_id() );	?>
 							</a>
 						<?php else: ?>
 								<a href="<?php echo wpsc_the_product_permalink(); ?>">
@@ -227,10 +216,11 @@ $image_width = get_option('product_image_width');
 									?>
 								</div>
 								
-								<div id="desctext"><?php ih_content(wpsc_the_product_description(), 50 );  ?> </div>
+								<div id="desctext"><?php the_excerpt(); ?> <p><a id='readstory' href="<?php echo wpsc_the_product_permalink(); ?>">LEARN MORE</a></p>
+								<?php //ih_content(wpsc_the_product_description(), 50);  ?> </div>
 							
 													
-							
+						<?php if ( 'true' == get_post_meta(wpsc_the_product_id(), 'Active', true) ): ?>
 							<?php if((get_option('hide_addtocart_button') == 0) &&  (get_option('addtocart_or_buynow') !='1')) : ?>
 								<?php if(wpsc_product_has_stock()) : ?>
 									<div class="wpsc_buy_button_container">
@@ -249,32 +239,39 @@ $image_width = get_option('product_image_width');
 							<?php endif ; ?>
 							<div class="entry-utility wpsc_product_utility">
 								<?php edit_post_link( __( 'Edit', 'wpsc' ), '<span class="edit-link">', '</span>' ); ?>
-							</div>
+							</div>						
+							
+							<?php echo wpsc_buy_now_button(wpsc_the_product_id()); ?>							
 
 
-						
-						<?php if((get_option('hide_addtocart_button') == 0) && (get_option('addtocart_or_buynow')=='1')) : ?>
-							<?php echo wpsc_buy_now_button(wpsc_the_product_id()); ?>
+													<!-- THIS IS THE QUANTITY OPTION MUST BE ENABLED FROM ADMIN SETTINGS -->
+													<?php if(wpsc_has_multi_adding()): ?>
+							                        	<fieldset><!-- legend>Donation</legend -->
+														<div class="wpsc_quantity_update">
+							                            <?php /*<label for="wpsc_quantity_update_<?php echo wpsc_the_product_id(); ?>"><?php _e('Quantity', 'wpsc'); ?>:</label>*/ ?>
+							<!-- ideahack -->
+														<!--input type="text" id="wpsc_quantity_update_<?php //echo wpsc_the_product_id(); ?>" name="wpsc_quantity_update" size="2" value="1" /-->
+
+
+
+											<?php ih_quantity_display( wpsc_the_product_id() ); ?>
+														<input type="hidden" name="key" value="<?php echo wpsc_the_cart_item_key(); ?>"/>
+														<input type="hidden" name="wpsc_update_quantity" value="true" />
+							                            </div><!--close wpsc_quantity_update-->
+							                            </fieldset>
+													<?php endif ;?>
+
+
+							
 						<?php endif ; ?>
+							
+
+
+
+
 						
-						<?php echo wpsc_product_rater(); ?>
 						
-						<!-- THIS IS THE QUANTITY OPTION MUST BE ENABLED FROM ADMIN SETTINGS -->
-						<?php if(wpsc_has_multi_adding()): ?>
-                        	<fieldset><!-- legend>Donation</legend -->
-							<div class="wpsc_quantity_update">
-                            <?php /*<label for="wpsc_quantity_update_<?php echo wpsc_the_product_id(); ?>"><?php _e('Quantity', 'wpsc'); ?>:</label>*/ ?>
-<!-- ideahack -->
-							<!--input type="text" id="wpsc_quantity_update_<?php //echo wpsc_the_product_id(); ?>" name="wpsc_quantity_update" size="2" value="1" /-->
-			
-				
-				
-				<?php ih_quantity_display( wpsc_the_product_id() ); ?>
-							<input type="hidden" name="key" value="<?php echo wpsc_the_cart_item_key(); ?>"/>
-							<input type="hidden" name="wpsc_update_quantity" value="true" />
-                            </div><!--close wpsc_quantity_update-->
-                            </fieldset>
-						<?php endif ;?>
+
 
 						<div class="wpsc_product_price">
 							<?php if( wpsc_show_stock_availability() ): ?>
@@ -289,22 +286,10 @@ $image_width = get_option('product_image_width');
 								<input type="text" id="donation_price_<?php echo wpsc_the_product_id(); ?>" name="donation_price" value="<?php echo wpsc_calculate_price(wpsc_the_product_id()); ?>" size="6" />
 
 							<?php else : ?>
-								<?php if(wpsc_product_on_special()) : ?>
-									<p class="pricedisplay product_<?php echo wpsc_the_product_id(); ?>"><?php _e('Old Price', 'wpsc'); ?>: <span class="oldprice" id="old_product_price_<?php echo wpsc_the_product_id(); ?>"><?php echo wpsc_product_normal_price(); ?></span></p>
-								<?php endif; ?>
 								<p class="pricedisplay product_<?php echo wpsc_the_product_id(); ?>"><?php _e('Price', 'wpsc'); ?>: <span id='product_price_<?php echo wpsc_the_product_id(); ?>' class="currentprice pricedisplay"><?php echo wpsc_the_product_price(); ?></span></p>
-								<?php if(wpsc_product_on_special()) : ?>
-									<p class="pricedisplay product_<?php echo wpsc_the_product_id(); ?>"><?php _e('You save', 'wpsc'); ?>: <span class="yousave" id="yousave_<?php echo wpsc_the_product_id(); ?>"><?php echo wpsc_currency_display(wpsc_you_save('type=amount'), array('html' => false)); ?>! (<?php echo wpsc_you_save(); ?>%)</span></p>
-								<?php endif; ?>
+
 								
-								<!-- multi currency code -->
-								<?php if(wpsc_product_has_multicurrency()) : ?>
-                                	<?php echo wpsc_display_product_multicurrency(); ?>
-                                <?php endif; ?>
-								
-								<?php if(wpsc_show_pnp()) : ?>
-									<p class="pricedisplay"><?php _e('Shipping', 'wpsc'); ?>:<span class="pp_price"><?php echo wpsc_product_postage_and_packaging(); ?></span></p>
-								<?php endif; ?>							
+						
 							<?php endif; ?>
 						</div><!--close wpsc_product_price-->
 						
@@ -319,7 +304,7 @@ $image_width = get_option('product_image_width');
 				</div><!--close productcol-->
 			<?php if(wpsc_product_on_special()) : ?><span class="sale"><?php _e('Sale', 'wpsc'); ?></span><?php endif; ?>
 		</div><!--close default_product_display-->
-		<?php } //end of else statement concerning end date ideahack ?>
+
 		<?php endwhile; ?>
 		<?php /** end the product loop here */?>
 		</div>

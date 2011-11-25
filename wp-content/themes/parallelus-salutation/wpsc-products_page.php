@@ -6,10 +6,9 @@ $image_width = get_option('product_image_width');
  */
 ?>
 
-
-
-
 <div id="default_products_page_container" class="wrap wpsc_container">
+
+<?php wpsc_pagination(); ?>
 
 <?php wpsc_output_breadcrumbs(); ?>
 	
@@ -122,9 +121,12 @@ $image_width = get_option('product_image_width');
 						<?php if(wpsc_the_product_thumbnail()) :
 						?>
 							<a rel="<?php echo wpsc_the_product_title(); ?>" class="<?php echo wpsc_the_product_image_link_classes(); ?>" href="<?php echo wpsc_the_product_image(); ?>">
-								<img class="product_image" id="product_image_<?php echo wpsc_the_product_id(); ?>" alt="<?php echo wpsc_the_product_title(); ?>" title="<?php echo wpsc_the_product_title(); ?>" src="<?php echo wpsc_the_product_thumbnail(); ?>"/>
 
+						<?php echo get_the_post_thumbnail( wpsc_the_product_id() );	?>
 							</a>
+							
+
+							
 						<?php else: ?>
 								<a href="<?php echo wpsc_the_product_permalink(); ?>">
 								<img class="no-image" id="product_image_<?php echo wpsc_the_product_id(); ?>" alt="No Image" title="<?php echo wpsc_the_product_title(); ?>" src="<?php echo WPSC_CORE_THEME_URL; ?>wpsc-images/noimage.png" width="<?php echo get_option('product_image_width'); ?>" height="<?php echo get_option('product_image_height'); ?>" />	
@@ -236,8 +238,6 @@ $image_width = get_option('product_image_width');
 								<?php edit_post_link( __( 'Edit', 'wpsc' ), '<span class="edit-link">', '</span>' ); ?>
 							</div>
 
-
-						
 						<?php if((get_option('hide_addtocart_button') == 0) && (get_option('addtocart_or_buynow')=='1')) : ?>
 							<?php echo wpsc_buy_now_button(wpsc_the_product_id()); ?>
 						<?php endif ; ?>
@@ -246,7 +246,7 @@ $image_width = get_option('product_image_width');
 						
 						<!-- THIS IS THE QUANTITY OPTION MUST BE ENABLED FROM ADMIN SETTINGS -->
 						<?php if(wpsc_has_multi_adding()): ?>
-                        	<fieldset><!-- legend>Donation</legend -->
+                        	<!-- <fieldset> legend>Donation</legend -->
 							<div class="wpsc_quantity_update">
                             <?php /*<label for="wpsc_quantity_update_<?php echo wpsc_the_product_id(); ?>"><?php _e('Quantity', 'wpsc'); ?>:</label>*/ ?>
 <!-- ideahack -->
@@ -258,7 +258,7 @@ $image_width = get_option('product_image_width');
 							<input type="hidden" name="key" value="<?php echo wpsc_the_cart_item_key(); ?>"/>
 							<input type="hidden" name="wpsc_update_quantity" value="true" />
                             </div><!--close wpsc_quantity_update-->
-                            </fieldset>
+                            <!-- </fieldset> -->
 						<?php endif ;?>
 
 						<div class="wpsc_product_price">
@@ -303,8 +303,9 @@ $image_width = get_option('product_image_width');
 					<?php // */ ?>
 				</div><!--close productcol-->
 			<?php if(wpsc_product_on_special()) : ?><span class="sale"><?php _e('Sale', 'wpsc'); ?></span><?php endif; ?>
-		</div><!--close default_product_display-->
+				</div><!--close default_product_display-->
 		<?php } //end of else statement concerning end date ideahack ?>
+
 		<?php endwhile; ?>
 		<?php /** end the product loop here */?>
 		</div>

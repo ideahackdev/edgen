@@ -816,8 +816,7 @@ if ( ! function_exists( 'display_slideShow' ) ) :
 					
 					
 					//ideahack, replace the slide content with our own content.
-					
-					$a_query = query_posts( array ( 'post_type' => 'wpsc-product', 'posts_per_page' => 7 ) );
+					$a_query = query_posts( array ( 'post_type' => 'wpsc-product', 'posts_per_page' => 7, 'meta_key' => 'Active', 'meta_value' => 'true' ) );
 					//var_dump($a_query);
 
 					$slide_product_array = array();	

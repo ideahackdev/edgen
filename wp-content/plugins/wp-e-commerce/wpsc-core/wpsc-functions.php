@@ -580,7 +580,10 @@ function wpsc_start_the_query() {
 					break;
 
 				case "name":
-					$wpsc_query_vars["orderby"] = 'title';
+					$wpsc_query_vars["meta_key"] = 'Expiration Date (yyyy/mm/dd)';
+					$wpsc_query_vars["orderby"] = 'meta_value';
+					$wpsc_query_vars["order"] = 'ASC';
+					//$wpsc_query_vars["orderby"] = 'title';
 					break;
 
 				//This only works in WP 3.0.

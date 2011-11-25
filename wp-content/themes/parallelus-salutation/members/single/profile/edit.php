@@ -6,12 +6,12 @@
 
 	<?php do_action( 'bp_before_profile_field_content' ) ?>
 
-		<h4><?php printf( __( "Editing '%s' Profile Group", "buddypress" ), bp_get_the_profile_group_name() ); ?></h4>
+		<!-- <h4><?php // printf( __( "Editing '%s' Profile Group", "buddypress" ), bp_get_the_profile_group_name() ); ?></h4>
 
-		<ul class="button-nav">
-			<?php bp_profile_group_tabs(); ?>
-		</ul>
-
+				<ul class="button-nav">
+					<?php bp_profile_group_tabs(); ?>
+				</ul> -->
+		
 		<div class="clear"></div>
 
 		<?php while ( bp_profile_fields() ) : bp_the_profile_field(); ?>
