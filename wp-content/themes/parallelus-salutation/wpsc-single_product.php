@@ -528,6 +528,7 @@
 		$logs = $wpdb->get_results($sql);
 		$purchaseLog = $logs[0];
 		
+		$donationDate = $purchaseLog->date;
 		$userid = $purchaseLog->user_ID; 
 		$users = get_userdata($userid);
 		
@@ -536,9 +537,9 @@
 			$totalDonation = $formdata->price * $formdata->quantity;
 		}
 		
-		echo ("<a href='" . bp_core_get_user_domain($userid) . "'>" . $donorName . "</a> donated " . wpsc_currency_display($totalDonation)) . "<br/>";
+		echo ("<a href='" . bp_core_get_user_domain($userid) . "'>" . $donorName . "</a> donated " . wpsc_currency_display($totalDonation)) . " on " . date( 'M d Y', $donationDate ) . "<br/>";
     }
-
+	?> <br/> <?php
 		foreach( $contributor_ids as $contributor_id){
 		
 		?>
